@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.489
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BeatSaber-PlayerDataReader", "BeatSaber-PlayerDataReader\BeatSaber-PlayerDataReader.csproj", "{76DEA3A1-3558-4DFE-834B-1FBD597A4DD6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BeatSaber-PlayerDataReaderTests", "BeatSaber-PlayerDataReaderTests\BeatSaber-PlayerDataReaderTests.csproj", "{34D47AB7-AE16-4492-8078-14161C1B884B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{76DEA3A1-3558-4DFE-834B-1FBD597A4DD6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{76DEA3A1-3558-4DFE-834B-1FBD597A4DD6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{76DEA3A1-3558-4DFE-834B-1FBD597A4DD6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{76DEA3A1-3558-4DFE-834B-1FBD597A4DD6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{34D47AB7-AE16-4492-8078-14161C1B884B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{34D47AB7-AE16-4492-8078-14161C1B884B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{34D47AB7-AE16-4492-8078-14161C1B884B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{34D47AB7-AE16-4492-8078-14161C1B884B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {468FA869-7B19-43FA-86FA-E0E48A033151}
+	EndGlobalSection
+EndGlobal
