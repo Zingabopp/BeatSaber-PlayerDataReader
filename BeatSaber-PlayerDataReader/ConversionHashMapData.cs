@@ -33,7 +33,8 @@ namespace BeatSaber_PlayerDataReader
                         while (!reader.EndOfStream)
                         {
                             hashes = reader.ReadLine().Split(null);
-                            _hashMap.AddOrUpdate(hashes[0], hashes[1]);
+                            if(!_hashMap.ContainsKey(hashes[0]))
+                                _hashMap.Add(hashes[0], hashes[1]);
                         }
                     }
                 }

@@ -22,11 +22,7 @@ namespace BeatSaber_PlayerDataReader
         {
             if (dict.ContainsKey(key))
             {
-                if (dict[key].ToString() != value.ToString())
-                {
-                    var oldValue = dict[key].ToString();
-                    //dict[key] = value;
-                }
+                dict[key] = value;
                 return true;
             }
             dict.Add(key, value);
