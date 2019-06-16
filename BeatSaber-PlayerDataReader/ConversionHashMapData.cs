@@ -32,8 +32,8 @@ namespace BeatSaber_PlayerDataReader
                         string[] hashes;
                         while (!reader.EndOfStream)
                         {
-                            hashes = reader.ReadLine().Split(null);
-                            if(!_hashMap.ContainsKey(hashes[0]))
+                            hashes = reader.ReadLine().ToUpper().Split(null);
+                            if (!_hashMap.ContainsKey(hashes[0])) // Ignoring repeated old hashes, the 3 repeated hashes don't have the new hash on Beat Saver
                                 _hashMap.Add(hashes[0], hashes[1]);
                         }
                     }

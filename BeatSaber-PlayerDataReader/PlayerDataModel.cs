@@ -17,6 +17,7 @@ namespace BeatSaber_PlayerDataReader
         public const string DEFAULT_FILE_NAME = "PlayerData.dat";
 
         public static readonly Regex BackupFilePattern = new Regex(@"^(\d{8})-(\d{6}).(.+)", RegexOptions.Compiled);
+        
         [JsonProperty("version")]
         public string version;
         [JsonProperty("localPlayers")]
@@ -81,25 +82,6 @@ namespace BeatSaber_PlayerDataReader
             }
             File.WriteAllText(fileToWrite.FullName, JsonConvert.SerializeObject(this));
         }
-
-        public void UpdateHashes()
-        {
-            Dictionary<string, string> hashMap = new Dictionary<string, string>();
-            string[] hashes;
-            using (var stream = new StreamReader("hashmap.tsv"))
-            {
-                while (!stream.EndOfStream)
-                {
-                    hashes = stream.ReadLine().Split(null);
-                    hashMap.AddOrUpdate(hashes[0], hashes[1]);
-                }
-            }
-            foreach (var song in Data)
-            {
-
-            }
-        }
-
     }
 
     [Serializable]
@@ -121,12 +103,15 @@ namespace BeatSaber_PlayerDataReader
     [Serializable]
     public class LevelStatsData
     {
+        public static readonly Regex NewIDPattern = new Regex(@"^custom_level_([0-9a-fA-f]{40})_?(.+)?", RegexOptions.Compiled);
         [JsonIgnore]
-        private string hash;
+        public string directory;
         [JsonIgnore]
-        private string songName;
+        public string hash;
         [JsonIgnore]
-        private string authorName;
+        public string songName;
+        [JsonIgnore]
+        public string authorName;
         [JsonIgnore]
         private string _levelId; 
         public string levelId
@@ -137,7 +122,14 @@ namespace BeatSaber_PlayerDataReader
             }
             set
             {
+                directory = hash = songName = authorName = string.Empty;
                 _levelId = value;
+                var match = NewIDPattern.Match(value);
+                if(match.Success)
+                {
+                    hash = match.Groups[1].Value;
+                    directory = match.Groups[2].Value;
+                }
                 string[] parts = value.Split('∎');
                 if (parts.Count() > 3)
                 {
@@ -145,6 +137,7 @@ namespace BeatSaber_PlayerDataReader
                     songName = parts[1];
                     authorName = parts[3];
                 }
+                
 
             }
         }
@@ -156,6 +149,11 @@ namespace BeatSaber_PlayerDataReader
         public int maxRank;
         public bool validScore;
         public int playCount;
+
+        public override string ToString()
+        {
+            return levelId;
+        }
     }
     [Serializable]
     public class PlayerGameplayModifiers
