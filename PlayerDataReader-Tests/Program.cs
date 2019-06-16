@@ -11,6 +11,7 @@ namespace PlayerDataReader_Tests
     {
         static void Main(string[] args)
         {
+            ConversionHashMapTests();
             PlayerDataTests();
 
             SongHashTests();
@@ -28,6 +29,11 @@ namespace PlayerDataReader_Tests
         {
             var songHashes = new SongHashDataModel();
             songHashes.Initialize();
+        }
+
+        public static void ConversionHashMapTests()
+        {
+            var hashMap = ConversionHashMapData.HashMap;
         }
     }
 }

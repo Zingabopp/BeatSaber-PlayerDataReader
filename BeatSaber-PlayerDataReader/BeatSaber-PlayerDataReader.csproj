@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ConversionHashMapData.cs" />
     <Compile Include="DictonaryExtensions.cs" />
     <Compile Include="PlayerDataModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -52,9 +53,9 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="hashmap.tsv">
+    <EmbeddedResource Include="hashmap.tsv">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
