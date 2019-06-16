@@ -38,5 +38,13 @@ namespace BeatSaber_PlayerDataReader.Tests
             dataModel.Initialize();
             dataModel.UpdateHashes();
         }
+
+        [TestMethod()]
+        public void GetBackupFilesTest()
+        {
+            var dataModel = new PlayerDataModel();
+            dataModel.Initialize();
+            var test = dataModel.GetBackupFiles();
+        }
     }
 }

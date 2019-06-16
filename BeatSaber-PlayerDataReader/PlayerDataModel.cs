@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.IO;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
@@ -9,10 +10,13 @@ using Newtonsoft.Json.Linq;
 
 namespace BeatSaber_PlayerDataReader
 {
-    public class PlayerDataModel// : IScrapedDataModel<List<LevelStatsData>, LevelStatsData>
+    public class PlayerDataModel
     {
         public static readonly string DEFAULT_FOLDER = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "Low", @"Hyperbolic Magnetism\Beat Saber");
+        public static readonly string BACKUP_FOLDER = Path.Combine(DEFAULT_FOLDER, "PlayerDataBackups");
         public const string DEFAULT_FILE_NAME = "PlayerData.dat";
+
+        public static readonly Regex BackupFilePattern = new Regex(@"^(\d{8})-(\d{6}).(.+)", RegexOptions.Compiled);
         [JsonProperty("version")]
         public string version;
         [JsonProperty("localPlayers")]
@@ -30,6 +34,24 @@ namespace BeatSaber_PlayerDataReader
         public PlayerDataModel()
         {
 
+        }
+
+        public FileInfo[] GetBackupFiles(string directory = "")
+        {
+            if (string.IsNullOrEmpty(directory))
+                directory = BACKUP_FOLDER;
+            var dir = new DirectoryInfo(directory);
+            var matchingFiles = dir.EnumerateFiles().Where(f => f.Name.ToLower().EndsWith(CurrentFile.Name.ToLower()));
+            List<FileInfo> backups = new List<FileInfo>();
+            foreach (var item in matchingFiles)
+            {
+                Match match = BackupFilePattern.Match(item.Name);
+                if(match.Success)
+                {
+                    backups.Add(item);
+                }
+            }
+            return backups.ToArray();
         }
 
         public void Initialize(string filePath = "")
@@ -52,7 +74,9 @@ namespace BeatSaber_PlayerDataReader
             fileToWrite.Refresh();
             if (fileToWrite.Exists)
             {
-                string copyPath = Path.Combine(fileToWrite.Directory.FullName, $"{DateTime.Now.ToString("yyyyMMdd")}-{DateTime.Now.ToString("HHmmss")} {fileToWrite.Name}.bak");
+                string copyPath = Path.Combine(BACKUP_FOLDER, $"{DateTime.Now.ToString("yyyyMMdd")}-{DateTime.Now.ToString("HHmmss")} {fileToWrite.Name}");
+                if (!Directory.Exists(BACKUP_FOLDER))
+                    Directory.CreateDirectory(BACKUP_FOLDER);
                 fileToWrite.CopyTo(copyPath);
             }
             File.WriteAllText(fileToWrite.FullName, JsonConvert.SerializeObject(this));
