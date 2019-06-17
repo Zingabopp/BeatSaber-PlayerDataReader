@@ -24,7 +24,6 @@ namespace BeatSaber_PlayerDataReader
 
         public void Initialize(string filePath = "")
         {
-            var test = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
             if (string.IsNullOrEmpty(filePath))
                 filePath = Path.Combine(DEFAULT_FOLDER, DEFAULT_FILE_NAME);
             if (File.Exists(filePath))
