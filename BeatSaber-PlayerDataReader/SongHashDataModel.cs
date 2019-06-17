@@ -41,8 +41,8 @@ namespace BeatSaber_PlayerDataReader
     public class HashData
     {
         [JsonProperty("directoryHash")]
-        string directoryHash { get; set; }
+        public string directoryHash { get; set; }
         [JsonProperty("songHash")]
-        string songHash { get; set; }
+        public string songHash { get; set; }
     }
 }
